@@ -1,6 +1,6 @@
 # cwl-graph-generate
 
-Generates https://view.commonwl.org/ like workflows, showing a complete workflow.
+Generates https://view.commonwl.org/ like images, showing a complete workflow in one image.
 
 ![complete workflo](https://user-images.githubusercontent.com/6304200/42953526-8f27d446-8b72-11e8-902d-b263bf881846.png)
 
