@@ -11,7 +11,7 @@ import logging
 
 from cwltool.command_line_tool import CommandLineTool, ExpressionTool
 from cwltool.load_tool import (fetch_document, resolve_tool_uri,
-                               validate_document, make_tool)
+                               resolve_and_validate_document, make_tool)
 from cwltool.workflow import Workflow
 from cwltool.context import LoadingContext, RuntimeContext, getdefault
 import urllib
@@ -360,9 +360,9 @@ def cwl_graph_generate(cwl_path: str):
         cwl_path = f"file://{path.abspath(cwl_path)}"
 
     document_loader, workflowobj, uri = fetch_document(cwl_path)
-    document_loader, avsc_names, processobj, metadata, uri = validate_document(document_loader, workflowobj, uri, strict=False, preprocess_only=True)
+    document_loader, uri = resolve_and_validate_document(document_loader, workflowobj, uri, preprocess_only=True)
     loadingContext = LoadingContext()
-    tool = make_tool(document_loader, avsc_names, metadata, uri, loadingContext)
+    tool = make_tool(uri, document_loader)
     cwl_viewer_dot(tool)
 
 def main():
@@ -371,3 +371,7 @@ def main():
     args = parser.parse_args()
 
     cwl_graph_generate(args.file_location)
+
+if __name__ == '__main__':
+    main()
+
